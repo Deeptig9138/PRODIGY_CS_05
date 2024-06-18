@@ -1,0 +1,31 @@
+Algorithm for packet_sniffer.py
+
+1. Import Required Modules
+   - Import `sniff` and `IP` from `scapy.all`.
+
+2. Define `packet_callback` Function
+   - Function `packet_callback(packet)`:
+     - Accepts a `packet` object as input.
+     - Checks if the packet contains an IP layer (`IP in packet`).
+     - If true:
+       - Retrieves IP layer information (`ip_layer = packet[IP]`).
+       - Prints source IP (`ip_layer.src`), destination IP (`ip_layer.dst`), and protocol (`ip_layer.proto`).
+       - Truncates and prints the first 20 bytes of the payload (`bytes(packet[IP].payload)[:20]`).
+       - Prints a separator line (`"-" * 20`).
+
+3. Define `main` Function
+   - Function `main()`:
+     - Prints `"Starting Packet Sniffer..."`.
+     - Sets `packet_count` to 5 (captures 5 packets).
+     - Attempts to capture packets:
+       - Uses `sniff` function with parameters:
+         - `filter="ip"`: Captures only IP packets.
+         - `count=packet_count`: Captures `packet_count` packets.
+       - Iterates over `captured_packets`:
+         - Calls `packet_callback(packet)` for each `packet` to process and print packet details.
+     - Prints `"Packet Sniffer Stopped."` upon completion.
+
+4. Execution Control
+   - `if __name__ == "__main__":`
+     - Executes `main()` function when the script is run directly.
+
